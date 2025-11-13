@@ -1,1 +1,28 @@
-
+<html>
+<body>
+    <h1>Task Details</h1>
+    <p><a href="/tasks">← Back to Tasks</a></p>
+    
+    <h2><%= task.title %></h2>
+    
+    <table border="1">
+        <tr><td><strong>Description</strong></td><td><%= task.description %></td></tr>
+        <tr><td><strong>Priority</strong></td><td><%= task.priority %></td></tr>
+        <tr><td><strong>Status</strong></td><td><%= task.status %></td></tr>
+        <tr><td><strong>Due Date</strong></td><td><%= new Date(task.dueDate).toLocaleDateString() %></td></tr>
+        <tr><td><strong>Category</strong></td><td><%= task.category %></td></tr>
+        <tr><td><strong>Tags</strong></td><td><%= task.tags.join(', ') %></td></tr>
+        <tr><td><strong>Estimated Hours</strong></td><td><%= task.estimatedHours %></td></tr>
+        <tr><td><strong>Actual Hours</strong></td><td><%= task.actualHours %></td></tr>
+        <tr><td><strong>Created</strong></td><td><%= new Date(task.createdAt).toLocaleString() %></td></tr>
+    </table>
+    
+    <p>
+        <a href="/tasks/edit?_id=<%= task._id %>">Edit</a> | 
+        <form action="/tasks/delete" method="POST" style="display:inline">
+            <input type="hidden" name="_id" value="<%= task._id %>">
+            <button onclick="return confirm('Delete this task?')">Delete</button>
+        </form>
+    </p>
+</body>
+</html>
