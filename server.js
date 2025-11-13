@@ -274,3 +274,19 @@ app.post('/tasks/create', authenticateUser, async (req, res) => {
     }
 });
 
+
+const PORT = process.env.PORT || 8099;
+
+client.connect().then(async () => {
+    const db = client.db(dbName);
+    await initializeDatabase(db);
+    console.log("Database initialized successfully");
+    
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+    });
+}).catch(error => {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+});
+
