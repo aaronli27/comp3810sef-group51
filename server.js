@@ -226,35 +226,6 @@ app.get('/tasks', authenticateUser, async (req, res) => {
         await client.connect();
         const db = client.db(dbName);
         
-        let criteria = { username: req.user.username };  
-        
-        
-        // Calculate stats
-        const totalTasks = tasks.length;
-        const completedTasks = tasks.filter(t => t.status === 'Completed').length;
-        const pendingTasks = totalTasks - completedTasks;
-        
-        res.status(200).render('tasks', { 
-            user: req.user,
-            tasks,
-            totalTasks,
-            completedTasks,
-            pendingTasks,
-            filters: req.query
-        });
-    } catch (error) {
-        console.error("Tasks error:", error);
-        res.status(500).render('error', { message: "Failed to load tasks" });
-    } finally {
-        await client.close();
-    }
-});
-
-app.get('/tasks', authenticateUser, async (req, res) => {
-    try {
-        await client.connect();
-        const db = client.db(dbName);
-        
         // Get ALL tasks for this user
         const criteria = { username: req.user.username };
         const tasks = await findDocument(db, tasksCollection, criteria);
