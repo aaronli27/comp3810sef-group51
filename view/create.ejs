@@ -11,7 +11,6 @@
         <tr><td><strong>Status</strong></td><td><%= task.status %></td></tr>
         <tr><td><strong>Due Date</strong></td><td><%= new Date(task.dueDate).toLocaleDateString() %></td></tr>
         <tr><td><strong>Category</strong></td><td><%= task.category %></td></tr>
-        <tr><td><strong>Tags</strong></td><td><%= task.tags.join(', ') %></td></tr>
         <tr><td><strong>Estimated Hours</strong></td><td><%= task.estimatedHours %></td></tr>
         <tr><td><strong>Actual Hours</strong></td><td><%= task.actualHours %></td></tr>
         <tr><td><strong>Created</strong></td><td><%= new Date(task.createdAt).toLocaleString() %></td></tr>
