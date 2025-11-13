@@ -258,8 +258,8 @@ app.post('/tasks/create', authenticateUser, async (req, res) => {
             status: req.fields.status || 'To Do',              //    doing,done or ready to do
             dueDate: new Date(req.fields.dueDate),                //     When need or finish it
             category: req.fields.category,                        //      what type of tasks? (work,things to buy)     
-            estimatedTime: req.fields.estimatedTime,         // need how many time to do
-            actualTime: "0 hours",            // like 
+            estimatedTime: req.fields.estimatedTime,             
+            actualTime: "0 hours",                               
             createdAt: new Date(),
             username: req.user.username
         };
