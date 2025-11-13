@@ -243,7 +243,7 @@ app.get('/tasks', authenticateUser, async (req, res) => {
 });
 
 app.get('/tasks/create', authenticateUser, (req, res) => {
-    res.status(200).render('task-create', { user: req.user });
+    res.status(200).render('create', { user: req.user });
 });
 
 app.post('/tasks/create', authenticateUser, async (req, res) => {
