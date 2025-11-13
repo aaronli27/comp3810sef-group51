@@ -1,27 +1,27 @@
 <html>
 <body>
-    <h1>Task Details</h1>
-    <p><a href="/tasks">← Back to Tasks</a></p>
+    <h1>Create Task</h1>
+    <a href="/tasks">Back to Tasks</a>
     
-    <h2><%= task.title %></h2>
-    
-    <table border="1">
-        <tr><td><strong>Description</strong></td><td><%= task.description %></td></tr>
-        <tr><td><strong>Priority</strong></td><td><%= task.priority %></td></tr>
-        <tr><td><strong>Status</strong></td><td><%= task.status %></td></tr>
-        <tr><td><strong>Due Date</strong></td><td><%= new Date(task.dueDate).toLocaleDateString() %></td></tr>
-        <tr><td><strong>Category</strong></td><td><%= task.category %></td></tr>
-        <tr><td><strong>Estimated Hours</strong></td><td><%= task.estimatedHours %></td></tr>
-        <tr><td><strong>Actual Hours</strong></td><td><%= task.actualHours %></td></tr>
-        <tr><td><strong>Created</strong></td><td><%= new Date(task.createdAt).toLocaleString() %></td></tr>
-    </table>
-    
-    <p>
-        <a href="/tasks/edit?_id=<%= task._id %>">Edit</a> | 
-        <form action="/tasks/delete" method="POST" style="display:inline">
-            <input type="hidden" name="_id" value="<%= task._id %>">
-            <button onclick="return confirm('Delete this task?')">Delete</button>
-        </form>
-    </p>
+    <form method="POST">
+        Title: <input name="title" required><br>
+        Description: <textarea name="description"></textarea><br>
+        Priority: 
+        <select name="priority" required>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select><br>
+        Status: 
+        <select name="status" required>
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select><br>
+        Due Date: <input type="date" name="dueDate" required><br>
+        Category: <textarea name="category"></textarea><br>
+        Estimated Hours: <input type="number" name="estimatedHours" value="1"><br>
+        <button>Create Task</button>
+    </form>
 </body>
 </html>
