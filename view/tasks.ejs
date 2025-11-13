@@ -1,1 +1,42 @@
+<html>
+<body>
+    <h1>My Tasks</h1>
+    <p>Welcome, <%= user.username %> | <a href="/logout">Logout</a></p>
+    
+    <p><a href="/tasks/create">+ Add New Task</a></p>
 
+    <h2>All Tasks (<%= tasks.length %>)</h2>
+    
+    <% if (tasks.length === 0) { %>
+        <p>No tasks found. <a href="/tasks/create">Create your first task</a></p>
+    <% } else { %>
+        <table border="1" style="width: 100%">
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Due Date</th>
+                <th>Category</th>
+                <th>Est. Hours</th>
+                <th>Actual Hours</th>
+                <th>Created</th>
+                <th>Actions</th>
+            </tr>
+            <% tasks.forEach(task => { %>
+            <tr>
+                <td><%= task.title %></td>
+                <td><%= task.description %></td>
+                <td><%= task.priority %></td>
+                <td><%= task.status %></td>
+                <td><%= new Date(task.dueDate).toLocaleDateString() %></td>
+                <td><%= task.category %></td>
+                <td><%= task.estimatedHours %></td>
+                <td><%= task.actualHours %></td>
+                <td><%= new Date(task.createdAt).toLocaleDateString() %></td>
+            </tr>
+            <% }); %>
+        </table>
+    <% } %>
+</body>
+</html>
