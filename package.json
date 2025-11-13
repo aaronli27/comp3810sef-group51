@@ -1,0 +1,23 @@
+{
+    "name": "server",
+    "description": "Personal_Task_Manger",
+    "author": "Group 51",
+    "version": "0.0.1",
+    "main": "server.js",
+    "dependencies": {
+        "ejs": "*",
+        "express": "*",
+        "express-formidable": "*",
+        "mongodb": "*",
+        "cookie-session": "*"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "scripts": {
+        "start": "node server.js"
+    }
+}
+
+
+
