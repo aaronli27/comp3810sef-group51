@@ -18,8 +18,8 @@
                 <th>Status</th>
                 <th>Due Date</th>
                 <th>Category</th>
-                <th>Est. Hours</th>
-                <th>Actual Hours</th>
+                <th>Est. Times</th>
+                <th>Actual Times</th>
                 <th>Created</th>
                 <th>Actions</th>
             </tr>
@@ -31,8 +31,8 @@
                 <td><%= task.status %></td>
                 <td><%= new Date(task.dueDate).toLocaleDateString() %></td>
                 <td><%= task.category %></td>
-                <td><%= task.estimatedHours %></td>
-                <td><%= task.actualHours %></td>
+                <td><%= task.estimatedTimes %></td>
+                <td><%= task.actualTimes %></td>
                 <td><%= new Date(task.createdAt).toLocaleDateString() %></td>
             </tr>
             <% }); %>
