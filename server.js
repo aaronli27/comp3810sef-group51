@@ -36,7 +36,7 @@ const client = new MongoClient(url, {
 const dbName = 'project_PTM';
 
 const usersCollection = "users";
-const taskCollection = "tasks";
+const tasksCollection = "tasks";
 
 app.set('view engine', 'ejs');
 
@@ -70,8 +70,9 @@ const initializeDatabase = async (db) => {
         ];
         
         await db.collection(usersCollection).insertMany(predefinedUsers);
+        console.log("Predefined users inserted successfully");
     }
-
+}
     const authenticateUser = async (req, res, next) => {
     try {
         if (req.session.user) {
@@ -151,7 +152,6 @@ app.post('/login', authenticateUser, (req, res) => {
 app.get('/signup', (req, res) => {
     res.status(200).render('signup', { 
         error: null,
-        user: null
     });
 });
 
