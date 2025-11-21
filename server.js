@@ -387,7 +387,7 @@ client.connect().then(async () => {
 
     app.get('/api/tasks', async (req, res) => {
         try {
-            await client,connect();
+            await client.connect();
             const db = client.db(dbName);
             const tasks = await db.collection(tasksCollection).find({}).toArray();
 
@@ -410,14 +410,14 @@ client.connect().then(async () => {
                 description: req.fields.description,
                 priority: req.fields.priority || 'Low',
                 status: req.fields.status || 'To Do',
-                dueDate: req.fields.dueDate ? new Data(req.fields.dueDate): new Date(),
+                dueDate: req.fields.dueDate ? new Date(req.fields.dueDate): new Date(),
                 category: req.fields.category || 'General',
                 estimatedTime: req.fields.estimatedTime || '1 hour',
                 actualTime: "0 hours",
                 createdAt: new Date(),
                 username: req.fields.username || "User"
             };
-            const result = await db.collection(taskCollection).insertOne(newTask);
+            const result = await db.collection(tasksCollection).insertOne(newTask);
             
             res.status(201).json({
                 message: "Task created successfully",
@@ -425,7 +425,7 @@ client.connect().then(async () => {
                 task: newTask
             });
         } catch (error) {
-            console.error("API Create Error:", error");
+            console.error("API Create Error:", error);
             res.status(500).json({ error: "Failed to create task" });
         } finally {
             await client.close();
@@ -473,10 +473,10 @@ client.connect().then(async () => {
             const db = client.db(dbName);
             const taskId = req.params.id;
 
-            if (ObjectId.isValid(taskId)) {
+            if (!ObjectId.isValid(taskId)) {
                 return res.status(400).json({ error: "Invalid Task ID format" });
             }
-            const result = await db.collection(taskCollection).deleteOne({
+            const result = await db.collection(tasksCollection).deleteOne({
                 _id: new ObjectId(taskId)
             });
             if (result.deletedCount === 0) {
@@ -487,7 +487,7 @@ client.connect().then(async () => {
             console.error("API Delete Error:", error);
             res.status(500).json({ error: "Failed to delete task" });
         } finally {
-            await client.clos();
+            await client.close();
         }
     });
             
