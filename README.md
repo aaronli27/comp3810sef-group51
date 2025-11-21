@@ -13,7 +13,7 @@ An Express.js-based web application that allows user to manage their daily tasks
 * **Student Name:**
 * **Student Name:**
 * **Student Name:**
-* **Student Name:**
+* **Student Name:** Ho Yiu Cho (SID: 14112868)
 
 
 ---
