@@ -9,7 +9,11 @@
 An Express.js-based web application that allows user to manage their daily tasks with priorities, categories and due dates. The system supports user authentication and full CRUD operations via both a Web UI and RESTful APIs.
 
 **Group Members:**
-* **Student Name 1:** Ngan Chiu Ki (SID: 14226245)
+* **Student Name:** Ngan Chiu Ki (SID: 14226245)
+* **Student Name:**
+* **Student Name:**
+* **Student Name:**
+* **Student Name:**
 
 
 ---
