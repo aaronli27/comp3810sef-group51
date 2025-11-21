@@ -72,7 +72,7 @@ const initializeDatabase = async (db) => {
         await db.collection(usersCollection).insertMany(predefinedUsers);
         console.log("Predefined users inserted successfully");
     }
-}
+};
     const authenticateUser = async (req, res, next) => {
     try {
         if (req.session.user) {
@@ -393,8 +393,8 @@ client.connect().then(async () => {
 
             res.status(200).json(tasks);
         } catch (error) {
-            consloe.error("API Read Error", error);
-            re.status(500).json({error: "Failed to fetch tasks" });
+            console.error("API Read Error", error);
+            res.status(500).json({error: "Failed to fetch tasks" });
         }finally {
             await client.close();
         }
@@ -411,13 +411,13 @@ client.connect().then(async () => {
                 priority: req.fields.priority || 'Low',
                 status: req.fields.status || 'To Do',
                 dueDate: req.fields.dueDate ? new Data(req.fields.dueDate): new Date(),
-                category: req.fields.catefory || 'General',
+                category: req.fields.category || 'General',
                 estimatedTime: req.fields.estimatedTime || '1 hour',
                 actualTime: "0 hours",
                 createdAt: new Date(),
                 username: req.fields.username || "User"
             };
-            const result = await db,collection(taskCollection).insertOne(newTask);
+            const result = await db.collection(taskCollection).insertOne(newTask);
             
             res.status(201).json({
                 message: "Task created successfully",
@@ -435,11 +435,11 @@ client.connect().then(async () => {
     app.put('/api/tasks/:id', async (req, res) => {
         try {
             await client.connect();
-            const bd = client.db(dbName);
+            const db = client.db(dbName);
 
             const taskId = req.params.id;
 
-            if (!ObjectId.isVaild(taskId)){
+            if (!ObjectId.isValid(taskId)){
                 return res.status(400).json({error: "Invalid Task ID format" });
             }
 
@@ -447,7 +447,7 @@ client.connect().then(async () => {
                 title: req.fields.title,
                 description: req.fields.description,
                 status: req.fields.status,
-                prioity: req.fields.priority
+                priority: req.fields.priority
             };
             Object.keys(updateData).forEach(key => updateData[key] === undefined && delete updateData[key]);
 
@@ -473,14 +473,14 @@ client.connect().then(async () => {
             const db = client.db(dbName);
             const taskId = req.params.id;
 
-            if (Object.isValid(taskId)) {
-                return res.status(400).json ({ error: "Invalid Task ID format" });
+            if (ObjectId.isValid(taskId)) {
+                return res.status(400).json({ error: "Invalid Task ID format" });
             }
             const result = await db.collection(taskCollection).deleteOne({
                 _id: new ObjectId(taskId)
             });
             if (result.deletedCount === 0) {
-                return res.status(404).json ({ error: "Task not found" });
+                return res.status(404).json({ error: "Task not found" });
             }
             res.status(200).json({ message: "Task deleted successfully" });
         } catch (error) {
