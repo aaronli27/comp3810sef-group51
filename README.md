@@ -65,7 +65,7 @@ User must log in to access the task management features.
 * **Create:** Click the `+ Add New Task` link. Fill in the Title, Description, Priority (Low/Medium/High), Status, Due Date and Category. Click "Create Task"
 * **Read:**
 * **Delete/Update:**
-* **Logout:**
+* **Logout:** Click the "Logout" link at the top of the page to end the session
 
 ---
 
