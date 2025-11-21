@@ -60,3 +60,56 @@ User must log in to access the task management features.
 * **Login:** You can use your created account or one of the pre-defined test accounts:
     * *Username:* `Ken` / *Password:* `Ken123`
     * *Username:* `John` / *Password:* `John123`
+
+**2. Manage Tasks (CRUD)**
+* **Create:** Click the `+ Add New Task` link. Fill in the Title, Description, Priority (Low/Medium/High), Status, Due Date and Category. Click "Create Task"
+* **Read:**
+* **Delete/Update:**
+* **Logout:**
+
+---
+
+### B. RESTful CRUD Services (API Testing)
+
+The server provides public RESTful APIs for managing tasks without session authentication. These can be tested using `CURL` commands in a terminal
+
+**URL:** 'https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net'
+
+#### 1. READ: GET 
+* **Method:** `GET`
+* **Path:** `/api/tasks`
+* **Command:**
+    ```bash
+    curl -X GET [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks)
+    ```
+
+#### 2. CREATE: Add a new task
+* **Method:** `POST`
+* **Path:** `/api/tasks`
+* **Command**
+    ```bash
+    curl -X POST [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks) \
+    -H "Content-Type: application/json" \
+    -d '{"title: "API Demo Task", "description": "Testing from CURL", "priority": "High", "status:" "In Progress", "username": "User"}'
+    ```
+
+#### 3. UPDATE: Modify an existing task
+* **Method:** `PUT`
+* **Path:** `/api/tasks/<TASK_ID>`
+* **Command**
+    ```bash
+    curl -X POST [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks) <PASTE_YOUR_ID_HERE>\
+    -H "Content-Type: application/json" \
+    -d '{"status": "COmpleted", "description": "Updated status via API"}'
+    ```
+
+#### 4. DELETE: Remove a task
+* **Method:** `DELETE`
+* **Path:** `/api/tasks/<TASK_ID>`
+* **Note:** REplace `<TASK_ID>` with the actual `_id` string
+* **Command:**
+    ```bash
+    curl -X DELETE [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks/) <PASTE_YOUR_TASK_ID_HERE>
+    ```
+
+---
