@@ -216,7 +216,7 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-app.get('/logout', (req, res) => {
+app.get('/logout', (req, res) => {                                            
     req.session = null;
     res.redirect('/login');
 });
@@ -274,6 +274,109 @@ app.post('/tasks/create', authenticateUser, async (req, res) => {
     }
 });
 
+app.get('/tasks/read/:id', authenticateUser, async (req, res) => {
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        
+        const taskId = req.params.id;
+        
+        if (!ObjectId.isValid(taskId)) {
+            return res.status(400).render('error', { message: "Invalid task ID" });
+        }
+        
+        const task = await db.collection(tasksCollection).findOne({ 
+            _id: new ObjectId(taskId),
+            username: req.user.username 
+        });
+        
+        if (!task) {
+            return res.status(404).render('error', { message: "Task not found" });
+        }
+        
+        res.status(200).render('edit-task', {
+            user: req.user,
+            task: task
+        });
+    } catch (error) {
+        console.error("Edit task error:", error);
+        res.status(500).render('error', { message: "Failed to load task for editing" });
+    } finally {
+        await client.close();
+    }
+});
+
+app.post('/tasks/update/:id', authenticateUser, async (req, res) => {
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        
+        const taskId = req.params.id;
+        
+        if (!ObjectId.isValid(taskId)) {
+            return res.status(400).render('error', { message: "Invalid task ID" });
+        }
+        
+        const updateData = {
+            title: req.fields.title,
+            description: req.fields.description,
+            priority: req.fields.priority,
+            status: req.fields.status,
+            dueDate: new Date(req.fields.dueDate),
+            category: req.fields.category,
+            estimatedTime: req.fields.estimatedTime,
+            updatedAt: new Date()
+        };
+        
+        const result = await updateDocument(
+            db, 
+            tasksCollection, 
+            { _id: new ObjectId(taskId), username: req.user.username },
+            updateData
+        );
+        
+        if (result.matchedCount === 0) {
+            return res.status(404).render('error', { message: "Task not found" });
+        }
+        
+        res.redirect('/tasks');
+    } catch (error) {
+        console.error("Update task error:", error);
+        res.status(500).render('error', { message: "Failed to update task" });
+    } finally {
+        await client.close();
+    }
+});
+
+app.post('/tasks/delete/:id', authenticateUser, async (req, res) => {
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        
+        const taskId = req.params.id;
+        
+        if (!ObjectId.isValid(taskId)) {
+            return res.status(400).render('error', { message: "Invalid task ID" });
+        }
+        
+        const result = await deleteDocument(
+            db, 
+            tasksCollection, 
+            { _id: new ObjectId(taskId), username: req.user.username }
+        );
+        
+        if (result.deletedCount === 0) {
+            return res.status(404).render('error', { message: "Task not found" });
+        }
+        
+        res.redirect('/tasks');
+    } catch (error) {
+        console.error("Delete task error:", error);
+        res.status(500).render('error', { message: "Failed to delete task" });
+    } finally {
+        await client.close();
+    }
+});
 
 const PORT = process.env.PORT || 8099;
 
