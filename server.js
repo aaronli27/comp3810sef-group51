@@ -281,7 +281,113 @@ client.connect().then(async () => {
     const db = client.db(dbName);
     await initializeDatabase(db);
     console.log("Database initialized successfully");
-    
+
+    app.get('/api/tasks', async (req, res) => {
+        try {
+            await client,connect();
+            const db = client.db(dbName);
+            const tasks = await db.collection(tasksCollection).find({}).toArray();
+
+            res.status(200).json(tasks);
+        } catch (error) {
+            consloe.error("API Read Error", error);
+            re.status(500).json({error: "Failed to fetch tasks" });
+        }finally {
+            await client.close();
+        }
+    });
+
+    app.post('/api/tasks', async (req, res) => {
+        try {
+            await client.connect();
+            const db = client.db(dbName);
+            
+            const newTask = {
+                title: req.fields.title,
+                description: req.fields.description,
+                priority: req.fields.priority || 'Low',
+                status: req.fields.status || 'To Do',
+                dueDate: req.fields.dueDate ? new Data(req.fields.dueDate): new Date(),
+                category: req.fields.catefory || 'General',
+                estimatedTime: req.fields.estimatedTime || '1 hour',
+                actualTime: "0 hours",
+                createdAt: new Date(),
+                username: req.fields.username || "User"
+            };
+            const result = await db,collection(taskCollection).insertOne(newTask);
+            
+            res.status(201).json({
+                message: "Task created successfully",
+                taskId: result.insertedId,
+                task: newTask
+            });
+        } catch (error) {
+            console.error("API Create Error:", error");
+            res.status(500).json({ error: "Failed to create task" });
+        } finally {
+            await client.close();
+        }
+    });
+
+    app.put('/api/tasks/:id', async (req, res) => {
+        try {
+            await client.connect();
+            const bd = client.db(dbName);
+
+            const taskId = req.params.id;
+
+            if (!ObjectId.isVaild(taskId)){
+                return res.status(400).json({error: "Invalid Task ID format" });
+            }
+
+            const updateData = {
+                title: req.fields.title,
+                description: req.fields.description,
+                status: req.fields.status,
+                prioity: req.fields.priority
+            };
+            Object.keys(updateData).forEach(key => updateData[key] === undefined && delete updateData[key]);
+
+            const result = await db.collection(tasksCollection).updateOne(
+                { _id: new ObjectId(taskId)},
+                { $set: updateData }
+                );
+            if (result.matchedCount === 0) {
+                return res.status(404).json({ error: "Task not found" });
+            }
+            res.status(200).json({ message: "Task updated successfully" });
+        } catch (error) {
+            console.error("API Update Error:", error);
+            res.status(500).json({ error: "Failed to update task" });
+        } finally {
+            await client.close();
+        }
+    });
+
+    app.delete('/api/tasks/:id', async (req, res) => {
+        try {
+            await client.connect();
+            const db = client.db(dbName);
+            const taskId = req.params.id;
+
+            if (Object.isValid(taskId)) {
+                return res.status(400).json ({ error: "Invalid Task ID format" });
+            }
+            const result = await db.collection(taskCollection).deleteOne({
+                _id: new ObjectId(taskId)
+            });
+            if (result.deletedCount === 0) {
+                return res.status(404).json ({ error: "Task not found" });
+            }
+            res.status(200).json({ message: "Task deleted successfully" });
+        } catch (error) {
+            console.error("API Delete Error:", error);
+            res.status(500).json({ error: "Failed to delete task" });
+        } finally {
+            await client.clos();
+        }
+    });
+            
     app.listen(PORT, () => {
         console.log(`Server running on http://localhost:${PORT}`);
     });
