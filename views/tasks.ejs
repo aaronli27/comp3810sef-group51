@@ -34,6 +34,11 @@
                 <td><%= task.estimatedTime %></td>
                 <td><%= task.actualTime %></td>
                 <td><%= new Date(task.createdAt).toLocaleDateString() %></td>
+                <td>
+                    <a href="/tasks/read/<%= task._id %>">Read</a><br>
+                    <a href="/tasks/edit/<%= task._id %>">Update</a><br>
+                    <a href="/tasks/delete/<%= task._id %>" onclick="return confirm('Delete?')">Delete</a>
+                </td>
             </tr>
             <% }); %>
         </table>
