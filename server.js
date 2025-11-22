@@ -306,7 +306,7 @@ app.get('/tasks/read/:id', authenticateUser, async (req, res) => {
     }
 });
 
-app.get('/tasks/edit/:id', authenticateUser, async (req, res) => {
+app.get('/tasks/update/:id', authenticateUser, async (req, res) => {
     try {
         await client.connect();
         const db = client.db(dbName);
