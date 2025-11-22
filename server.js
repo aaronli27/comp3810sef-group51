@@ -306,6 +306,38 @@ app.get('/tasks/read/:id', authenticateUser, async (req, res) => {
     }
 });
 
+app.get('/tasks/edit/:id', authenticateUser, async (req, res) => {
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        
+        const taskId = req.params.id;
+        
+        if (!ObjectId.isValid(taskId)) {
+            return res.status(400).render('error', { message: "Invalid task ID" });
+        }
+        
+        const task = await db.collection(tasksCollection).findOne({ 
+            _id: new ObjectId(taskId),
+            username: req.user.username 
+        });
+        
+        if (!task) {
+            return res.status(404).render('error', { message: "Task not found" });
+        }
+        
+        res.status(200).render('edit-task', {
+            user: req.user,
+            task: task
+        });
+    } catch (error) {
+        console.error("Edit task error:", error);
+        res.status(500).render('error', { message: "Failed to load task for editing" });
+    } finally {
+        await client.close();
+    }
+});
+
 app.post('/tasks/update/:id', authenticateUser, async (req, res) => {
     try {
         await client.connect();
