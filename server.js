@@ -326,7 +326,7 @@ app.get('/tasks/edit/:id', authenticateUser, async (req, res) => {
             return res.status(404).render('error', { message: "Task not found" });
         }
         
-        res.status(200).render('edittask', {
+        res.status(200).render('edit-task', {
             user: req.user,
             task: task
         });
