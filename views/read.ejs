@@ -10,7 +10,8 @@
     <p>EstimatedTime: <%= task.estimatedTime %></p>
     <p>ActualTime: <%= task.actualTime %></p>
 
-    <a href="/tasks/edit/<%= task._id %>">edit</a><br>
-    <a href="/tasks">home</a>
+    <a href="/tasks/edit/<%= task._id %>">edit</a> 
+    <a href="/tasks/delete/<%= task._id %>" onclick="return confirm('Delete this task?')">delete</a> 
+    <a href="/tasks">ReturnHome</a>
 </body>
 </html>
