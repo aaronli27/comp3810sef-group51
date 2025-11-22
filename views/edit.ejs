@@ -1,0 +1,33 @@
+<html>
+<body>
+    <h1>Edit Task</h1>
+    <hr>    
+    <form action="/tasks/edit/<%= task._id %>" method="POST">
+        Title: <input name="title" value="<%= task.title %>"><br>
+        Description: <input name="description" value="<%= task.description %>"><br>
+        Priority: 
+        <select name="priority">
+            <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
+            <option value="Medium" <%= task.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
+            <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
+        </select><br>
+        Status: 
+        <select name="status">
+            <option value="To Do" <%= task.status === 'To Do' ? 'selected' : '' %>>To Do</option>
+            <option value="In Progress" <%= task.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+            <option value="Done" <%= task.status === 'Done' ? 'selected' : '' %>>Done</option>
+        </select><br>
+        Due Date: <input type="date" name="dueDate" value="<%= task.dueDate.toISOString().split('T')[0] %>"><br>
+        Category: 
+        <select name="category">
+            <option value="Work" <%= task.category === 'Work' ? 'selected' : '' %>>Work</option>
+            <option value="Personal" <%= task.category === 'Personal' ? 'selected' : '' %>>Personal</option>
+            <option value="Entertainment" <%= task.category === 'Entertainment' ? 'selected' : '' %>>Entertainment</option>
+            <option value="Health" <%= task.category === 'Health' ? 'selected' : '' %>>Health</option>
+        </select><br>
+        Estimated Time: <input name="estimatedTime" value="<%= task.estimatedTime %>"><br>
+        <input type="submit" value="update">
+    </form>
+    <a href="/tasks">back to tasks</a>
+</body>
+</html>
