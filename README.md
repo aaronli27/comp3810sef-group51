@@ -63,8 +63,8 @@ User must log in to access the task management features.
 
 **2. Manage Tasks (CRUD)**
 * **Create:** Click the `+ Add New Task` link. Fill in the Title, Description, Priority (Low/Medium/High), Status, Due Date and Category. Click "Create Task"
-* **Read:**
-* **Delete/Update:**
+* **Read:** After logging in, the home page (`/tasks`) displays a table of all tasks belonging to the current user
+* **Delete/Update:** In the task list, click the `Edit` link to modify task detail, or click `Delete` to remove task permanently
 * **Logout:** Click the "Logout" link at the top of the page to end the session
 
 ---
