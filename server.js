@@ -348,7 +348,7 @@ app.post('/tasks/update/:id', authenticateUser, async (req, res) => {
     }
 });
 
-app.post('/tasks/delete/:id', authenticateUser, async (req, res) => {
+app.get('/tasks/delete/:id', authenticateUser, async (req, res) => {
     try {
         await client.connect();
         const db = client.db(dbName);
