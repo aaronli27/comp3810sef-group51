@@ -20,6 +20,7 @@
         Due Date: <input type="date" name="dueDate" value="<%= task.dueDate.toISOString().split('T')[0] %>"><br>
         Category: <input name="category" value="<%= task.category %>"><br>
         Estimated Time: <input name="estimatedTime" value="<%= task.estimatedTime %>"><br>
+        Actual Time: <input name="actualTime" value="<%= task.actualTime %>"><br>
         <input type="submit" value="update">
     </form>
     <a href="/tasks">back to tasks</a>
