@@ -1,38 +1,33 @@
 <html>
-<body>
-    <h2>Edit Task</h2><hr>
-    
-    <form method="POST" action="/tasks/update/<%= task._id %>">
-        <p>Title: <input type="text" name="title" value="<%= task.title %>" required></p>
-        <p>Description: <textarea name="description" required><%= task.description %></textarea></p>
-        <p>Priority: 
+    <body>
+        <h1>Edit Task</h1>
+        <hr>    
+        <form action="/tasks/update/<%= task._id %>" method="POST">
+            Title: <input name="title" value="<%= task.title %>"><br>
+            Description: <input name="description" value="<%= task.description %>"><br>
+            Priority: 
             <select name="priority">
                 <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
                 <option value="Medium" <%= task.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
                 <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
-            </select>
-        </p>
-        <p>Status: 
+            </select><br>
+            Status: 
             <select name="status">
                 <option value="To Do" <%= task.status === 'To Do' ? 'selected' : '' %>>To Do</option>
                 <option value="In Progress" <%= task.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
                 <option value="Done" <%= task.status === 'Done' ? 'selected' : '' %>>Done</option>
-            </select>
-        </p>
-        <p>Due Date: <input type="date" name="dueDate" value="<%= task.dueDate.toISOString().split('T')[0] %>" required></p>
-        <p>Category: 
+            </select><br>
+            Due Date: <input type="date" name="dueDate" value="<%= task.dueDate.toISOString().split('T')[0] %>"><br>
+            Category: 
             <select name="category">
                 <option value="Work" <%= task.category === 'Work' ? 'selected' : '' %>>Work</option>
                 <option value="Personal" <%= task.category === 'Personal' ? 'selected' : '' %>>Personal</option>
-                <option value="Shopping" <%= task.category === 'Shopping' ? 'selected' : '' %>>Shopping</option>
+                <option value="Entertainment" <%= task.category === 'Entertainment' ? 'selected' : '' %>>Entertainment</option>
                 <option value="Health" <%= task.category === 'Health' ? 'selected' : '' %>>Health</option>
-            </select>
-        </p>
-        <p>Estimated Time: <input type="text" name="estimatedTime" value="<%= task.estimatedTime %>"></p>
-
-        <button type="submit">Update</button>
-    </form>
-
-    <a href="/tasks">home</a>
-</body>
+            </select><br>
+            Estimated Time: <input name="estimatedTime" value="<%= task.estimatedTime %>"><br>
+            <input type="submit" value="update">
+        </form>
+        <a href="/tasks">back to tasks</a>
+    </body>
 </html>
