@@ -5,10 +5,10 @@
     <p>Description: <%= task.description %></p>
     <p>Priority: <%= task.priority %></p>
     <p>Status: <%= task.status %></p>
-    <p>Due Date: <%= task.dueDate.toDateString() %></p>
+    <p>DueDate: <%= task.dueDate.toDateString() %></p>
     <p>Category: <%= task.category %></p>
-    <p>Estimated Time: <%= task.estimatedTime %></p>
-    <p>Actual Time: <%= task.actualTime %></p>
+    <p>EstimatedTime: <%= task.estimatedTime %></p>
+    <p>ActualTime: <%= task.actualTime %></p>
 
     <a href="/tasks/edit/<%= task._id %>">edit</a><br>
     <a href="/tasks">home</a>
