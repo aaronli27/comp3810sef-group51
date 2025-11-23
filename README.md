@@ -40,7 +40,7 @@ The project follows the MVC structure:
      * `create.ejs`: Form to add new tasks (Create).
      * `error.ejs`: Error display page
      * `edit-task.ejs`: Form to edit existing tasks
-     * `read-task.ejs` Page to display task details
+     * `read-task.ejs`: Page to display task details
 
 ---
 
@@ -76,7 +76,7 @@ User must log in to access the task management features.
 
 The server provides public RESTful APIs for managing tasks without session authentication. These can be tested using `CURL` commands in a terminal
 
-**URL:** 'https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net'
+**URL:** https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net
 
 #### 1. READ: GET 
 * **Method:** `GET`
