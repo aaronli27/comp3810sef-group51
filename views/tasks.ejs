@@ -1,46 +1,318 @@
+<!DOCTYPE html>
 <html>
-<body>
-    <h1>My Tasks</h1>
-    <p>Welcome, <%= user.username %> | <a href="/logout">Logout</a></p>
-    
-    <p><a href="/tasks/create">+ Add New Task</a></p>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    <h2>All Tasks (<%= tasks.length %>)</h2>
-    
-    <% if (tasks.length === 0) { %>
-        <p>No tasks found. <a href="/tasks/create">Create your first task</a></p>
-    <% } else { %>
-        <table border="1" style="width: 100%">
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Due Date</th>
-                <th>Category</th>
-                <th>Est. Times</th>
-                <th>Actual Times</th>
-                <th>Created</th>
-                <th>Actions</th>
-            </tr>
-            <% tasks.forEach(task => { %>
-            <tr>
-                <td><%= task.title %></td>
-                <td><%= task.description %></td>
-                <td><%= task.priority %></td>
-                <td><%= task.status %></td>
-                <td><%= new Date(task.dueDate).toLocaleDateString() %></td>
-                <td><%= task.category %></td>
-                <td><%= task.estimatedTime %></td>
-                <td><%= task.actualTimes %></td>
-                <td><%= new Date(task.createdAt).toLocaleDateString() %></td>
-                <td>
-                    <a href="/tasks/read/<%= task._id %>">Read</a><br>
-                    <a href="/tasks/delete/<%= task._id %>" onclick="return confirm('Delete?')">Delete</a>
-                </td>
-            </tr>
-            <% }); %>
-        </table>
-    <% } %>
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, #4A90E2, #50C0A8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 8px 15px;
+            background: linear-gradient(to right, #4A90E2, #4A90E2);
+            border-radius: 5px;
+            transition: opacity 0.3s;
+        }
+
+        .user-info a:hover {
+            opacity: 0.9;
+        }
+
+        main {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .header-actions {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .add-task-btn {
+            color: #4A90E2;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            background-color: #f0f7ff;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .add-task-btn:hover {
+            opacity: 0.9;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+
+        .empty-state a {
+            color: #4A90E2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .empty-state a:hover {
+            text-decoration: underline;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: linear-gradient(to right, #4A90E2, #4A90E2);
+            color: white;
+            text-align: left;
+            padding: 12px 15px;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .priority {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .priority.high {
+            background-color: #fee;
+            color: #c00;
+        }
+
+        .priority.medium {
+            background-color: #fff8e1;
+            color: #ff9800;
+        }
+
+        .priority.low {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status.to-do {
+            background-color: #e8f5e9;
+            color: #4caf50;
+        }
+
+        .status.in-progress {
+            background-color: #e3f2fd;
+            color: #2196f3;
+        }
+
+        .status.completed {
+            background-color: #f5f5f5;
+            color: #666;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            color: #4A90E2;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            background-color: #f0f7ff;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Personal Task Manager</h1>
+            <div class="user-info">
+                <span>Welcome, <%= user.username %></span>
+                <a href="/logout">Logout</a>
+            </div>
+        </header>
+
+        <main>
+            <div class="header-actions">
+                <h2>All Tasks (<%= tasks.length %>)</h2>
+                <a href="/tasks/create" class="add-task-btn">+ Add New Task</a>
+            </div>
+
+            <% if (tasks.length === 0) { %>
+                <div class="empty-state">
+                    <p>No tasks found. <a href="/tasks/create">Create your first task</a></p>
+                </div>
+            <% } else { %>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                                <th>Category</th>
+                                <th>Est. Time</th>
+                                <th>Actual Time</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% tasks.forEach(task => { %>
+                            <tr>
+                                <td><%= task.title %></td>
+                                <td><%= task.description %></td>
+                                <td>
+                                    <span class="priority <%= task.priority.toLowerCase() %>">
+                                        <%= task.priority %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="status <%= task.status.toLowerCase().replace(' ', '-') %>">
+                                        <%= task.status %>
+                                    </span>
+                                </td>
+                                <td><%= new Date(task.dueDate).toLocaleDateString() %></td>
+                                <td><%= task.category %></td>
+                                <td><%= task.estimatedTime %></td>
+                                <td><%= task.actualTime %></td>
+                                <td><%= new Date(task.createdAt).toLocaleDateString() %></td>
+                                <td>
+                                    <div class="actions">
+                                        <a href="/tasks/read/<%= task._id %>" class="btn btn-primary">View</a>
+                                        <a href="/tasks/delete/<%= task._id %>" onclick="return confirm('Are you sure you want to delete this task?')" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </main>
+    </div>
 </body>
 </html>
