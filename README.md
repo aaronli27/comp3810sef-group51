@@ -66,7 +66,7 @@ User must log in to access the task management features.
 **2. Manage Tasks (CRUD)**
 * **Create:** Click the `+ Add New Task` link. Fill in the Title, Description, Priority (Low/Medium/High), Status, Due Date and Category. Click "Create Task"
 * **Read:** After logging in, the home page (`/tasks`) displays a table of all tasks belonging to the current user
-* **Delete/Update:** In the task list, click the `View` link to button to see details, then click `Edit` to modify or `Delete` to remove task permanently
+* **Delete/Update:** In the task list, click the `View` button to see details, then click `Edit` to modify or `Delete` to remove task permanently
 * **Logout:** Click the "Logout" link at the top of the page to end the session
 
 ---
@@ -92,16 +92,16 @@ The server provides public RESTful APIs for managing tasks without session authe
     ```bash
     curl -X POST https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks \
     -H "Content-Type: application/json" \
-    -d '{"title": "API Demo Task", "description": "Testing from CURL", "priority": "High", "status:" "In Progress", "username": "User"}'
+    -d '{"title": "API Demo Task", "description": "Testing from CURL", "priority": "High", "status": "In Progress", "username": "User"}'
     ```
 
 #### 3. UPDATE: Modify an existing task
 * **Method:** `PUT`
 * **Path:** `/api/tasks/<TASK_ID>`
-* **Note:** Replace `<TASJ_ID>` with the actual `_id` string from the READ/CREATE response
+* **Note:** Replace `<TASK_ID>` with the actual `_id` string from the READ/CREATE response
 * **Command**
     ```bash
-    curl -X POST https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks/<PASTE_YOUR_ID_HERE>\
+    curl -X PUT https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks/<PASTE_YOUR_ID_HERE>\
     -H "Content-Type: application/json" \
     -d '{"status": "Completed", "description": "Updated status via API"}'
     ```
