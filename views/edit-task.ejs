@@ -3,7 +3,7 @@
     <h1>📋Edit Task</h1>
     <hr>    
     <form action="/tasks/edit/<%= task._id %>" method="POST">
-        <table cell padding="5">
+        <table>
             <tr><td>Title:</td><td><input name="title" value="<%= task.title %>"></td></tr>
             <tr><td>Description:</td><td><input name="description" value="<%= task.description %>"></td></tr>
             <tr><td>Priority: 
