@@ -82,7 +82,7 @@ The server provides public RESTful APIs for managing tasks without session authe
 * **Path:** `/api/tasks`
 * **Command:**
     ```bash
-    curl -X GET [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks)
+    curl -X GET https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks
     ```
 
 #### 2. CREATE: Add a new task
@@ -90,7 +90,7 @@ The server provides public RESTful APIs for managing tasks without session authe
 * **Path:** `/api/tasks`
 * **Command**
     ```bash
-    curl -X POST [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks) \
+    curl -X POST https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks \
     -H "Content-Type: application/json" \
     -d '{"title": "API Demo Task", "description": "Testing from CURL", "priority": "High", "status:" "In Progress", "username": "User"}'
     ```
@@ -101,7 +101,7 @@ The server provides public RESTful APIs for managing tasks without session authe
 * **Note:** Replace `<TASJ_ID>` with the actual `_id` string from the READ/CREATE response
 * **Command**
     ```bash
-    curl -X POST [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks)<PASTE_YOUR_ID_HERE>\
+    curl -X POST https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks/<PASTE_YOUR_ID_HERE>\
     -H "Content-Type: application/json" \
     -d '{"status": "Completed", "description": "Updated status via API"}'
     ```
@@ -112,7 +112,7 @@ The server provides public RESTful APIs for managing tasks without session authe
 * **Note:** Replace `<TASK_ID>` with the actual `_id` string
 * **Command:**
     ```bash
-    curl -X DELETE [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks/)<PASTE_YOUR_TASK_ID_HERE>
+    curl -X DELETE https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks/<PASTE_YOUR_TASK_ID_HERE>
     ```
 
 ---
