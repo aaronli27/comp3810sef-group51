@@ -357,6 +357,7 @@ app.post('/tasks/edit/:id', authenticateUser, async (req, res) => {
             dueDate: new Date(req.fields.dueDate),
             category: req.fields.category,
             estimatedTime: req.fields.estimatedTime,
+            actualTime: req.fields.actualTime,
             updatedAt: new Date()
         };
         
