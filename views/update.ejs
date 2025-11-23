@@ -26,6 +26,7 @@
                 <option value="Health" <%= task.category === 'Health' ? 'selected' : '' %>>Health</option>
             </select><br>
             Estimated Time: <input name="estimatedTime" value="<%= task.estimatedTime %>"><br>
+            actualTimes:<input name="actualTimes" value="<%= task.actualTimes %>"><br>
             <input type="submit" value="update">
         </form>
         <a href="/tasks">back to tasks</a>
