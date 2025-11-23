@@ -4,16 +4,20 @@
     <hr>    
     <form action="/tasks/edit/<%= task._id %>" method="POST">
         <table cellpadding="5">
-            <tr><td>Title:</td><td><input name="title" value="<%= task.title %>" size="30"></td></tr>
-            <tr><td>Description:</td><td><input name="description" value="<%= task.description %>" size="30"></td></tr>
-            <tr><td>Priority:</td><td>
+            <tr><td>Title:</td><td><input name="title" value="<%= task.title %>" size="20"></td></tr>
+            <tr><td>Description:</td><td><input name="description" value="<%= task.description %>" size="20"></td></tr>
+            <tr>
+                <td>Priority:</td>
+                <td>
                 <select name="priority">
                     <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
                     <option value="Medium" <%= task.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
                     <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
                 </select>
             </td></tr>
-            <tr><td>Status:</td><td>
+            <tr>
+                <td>Status:</td>
+                <td>
                 <select name="status">
                     <option value="To Do" <%= task.status === 'To Do' ? 'selected' : '' %>>To Do</option>
                     <option value="In Progress" <%= task.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
