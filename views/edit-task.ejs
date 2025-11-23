@@ -1,28 +1,30 @@
 <html>
 <body>
-    <h1>Edit Task</h1>
+    <h1>📋Edit Task</h1>
     <hr>    
     <form action="/tasks/edit/<%= task._id %>" method="POST">
-        Title: <input name="title" value="<%= task.title %>"><br>
-        Description: <input name="description" value="<%= task.description %>"><br>
-        Priority: 
-        <select name="priority">
-            <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
-            <option value="Medium" <%= task.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
-            <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
-        </select><br>
-        Status: 
-        <select name="status">
-            <option value="To Do" <%= task.status === 'To Do' ? 'selected' : '' %>>To Do</option>
-            <option value="In Progress" <%= task.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
-            <option value="Done" <%= task.status === 'Done' ? 'selected' : '' %>>Done</option>
-        </select><br>
-        Due Date: <input type="date" name="dueDate" value="<%= task.dueDate.toISOString().split('T')[0] %>"><br>
-        Category: <input name="category" value="<%= task.category %>"><br>
-        Estimated Time: <input name="estimatedTime" value="<%= task.estimatedTime %>"><br>
-        Actual Time: <input name="actualTime" value="<%= task.actualTime %>"><br>
+        <table cell padding="5">
+            <tr><td>Title:</td><td><input name="title" value="<%= task.title %>"></td></tr>
+            <tr><td>Description:</td><td><input name="description" value="<%= task.description %>"></td></tr>
+            <tr><td>Priority: 
+            <select name="priority">
+                <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
+                <option value="Medium" <%= task.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
+                <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
+            </select></td></tr>
+            <tr><td>Status: 
+            <select name="status">
+                <option value="To Do" <%= task.status === 'To Do' ? 'selected' : '' %>>To Do</option>
+                <option value="In Progress" <%= task.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+                <option value="Done" <%= task.status === 'Done' ? 'selected' : '' %>>Done</option>
+            </select></td></tr>
+            <tr><td>Due Date: <input type="date" name="dueDate" value="<%= task.dueDate.toISOString().split('T')[0] %>"></td></tr>
+            <tr><td>Category: <input name="category" value="<%= task.category %>"></td></tr>
+            <tr><td>Estimated Time: <input name="estimatedTime" value="<%= task.estimatedTime %>"></td></tr>
+            <tr><td>Actual Time: <input name="actualTime" value="<%= task.actualTime %>"></td></tr>
+        </table>
         <input type="submit" value="update">
     </form>
-    <a href="/tasks">back to tasks</a>
+    <a href="/tasks">Back to tasks</a>
 </body>
 </html>
