@@ -38,7 +38,7 @@
 
         h1, h2 {
             margin-bottom: 15px;
-            color: #4A90E2;
+            color: #fff;
         }
 
         .task-details {
@@ -138,13 +138,13 @@
             <p><strong>DueDate:</strong> <%= task.dueDate.toDateString() %></p>
             <p><strong>Category:</strong> <%= task.category %></p>
             <p><strong>EstimatedTime:</strong> <%= task.estimatedTime %></p>
-            <p><strong>ActualTime:</strong> <%= task.actualTime %></p>
+            <p><strong>ActualTimes:</strong> <%= task.actualTimes %></p>
         </div>
 
         <div class="actions">
-            <a href="/tasks/edit/<%= task._id %>">Edit Task</a>
-            <a href="/tasks/delete/<%= task._id %>">Delete Task</a>
-            <a href="/tasks">Return to Task List</a>
+            <a href="/tasks/edit/<%= task._id %>">Edit</a>
+            <a href="/tasks/delete/<%= task._id %>">Delete</a>
+            <a href="/tasks">Return Home</a>
         </div>
     </div>
 </body>
