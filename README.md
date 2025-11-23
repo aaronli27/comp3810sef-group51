@@ -35,16 +35,18 @@ The project follows the MVC structure:
      * `express-formidable`: Parses form data and JSON requests
 * **`views/`**: Contain EJS templates for the User Interface:
      * `login.ejs` / `signup.ejs`: Authentication page
-     * `tasks.ejs`: The main dashboard displaying the lisy of tasks
-     * `create.ejs`: Form ro add new tasks (Create).
+     * `tasks.ejs`: The main dashboard displaying the list of tasks
+     * `create.ejs`: Form to add new tasks (Create).
      * `error.ejs`: Error display page
+     * `edit-task.ejs`: Form to edit existing tasks
+     * `read-task.ejs` Page to display task details
 
 ---
 
 ## 3. Cloud Deployment 
 
 The application is deployed and running on the cloud
-**Cloud Server URL:** [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net)
+**Cloud Server URL:** https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net
 
 ---
 
@@ -64,7 +66,7 @@ User must log in to access the task management features.
 **2. Manage Tasks (CRUD)**
 * **Create:** Click the `+ Add New Task` link. Fill in the Title, Description, Priority (Low/Medium/High), Status, Due Date and Category. Click "Create Task"
 * **Read:** After logging in, the home page (`/tasks`) displays a table of all tasks belonging to the current user
-* **Delete/Update:** In the task list, click the `Edit` link to modify task detail, or click `Delete` to remove task permanently
+* **Delete/Update:** In the task list, click the `View` link to button to see details, then click `Edit` to modify or `Delete` to remove task permanently
 * **Logout:** Click the "Logout" link at the top of the page to end the session
 
 ---
@@ -90,15 +92,16 @@ The server provides public RESTful APIs for managing tasks without session authe
     ```bash
     curl -X POST [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks) \
     -H "Content-Type: application/json" \
-    -d '{"title: "API Demo Task", "description": "Testing from CURL", "priority": "High", "status:" "In Progress", "username": "User"}'
+    -d '{"title": "API Demo Task", "description": "Testing from CURL", "priority": "High", "status:" "In Progress", "username": "User"}'
     ```
 
 #### 3. UPDATE: Modify an existing task
 * **Method:** `PUT`
 * **Path:** `/api/tasks/<TASK_ID>`
+* **Note:** Replace `<TASJ_ID>` with the actual `_id` string from the READ/CREATE response
 * **Command**
     ```bash
-    curl -X POST [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks) <PASTE_YOUR_ID_HERE>\
+    curl -X POST [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks)<PASTE_YOUR_ID_HERE>\
     -H "Content-Type: application/json" \
     -d '{"status": "Completed", "description": "Updated status via API"}'
     ```
@@ -109,7 +112,7 @@ The server provides public RESTful APIs for managing tasks without session authe
 * **Note:** Replace `<TASK_ID>` with the actual `_id` string
 * **Command:**
     ```bash
-    curl -X DELETE [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks/) <PASTE_YOUR_TASK_ID_HERE>
+    curl -X DELETE [https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks](https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks/)<PASTE_YOUR_TASK_ID_HERE>
     ```
 
 ---
