@@ -12,7 +12,7 @@ An Express.js-based web application that allows user to manage their daily tasks
 **Group Members:**
 * **Student Name:** Ngan Chiu Ki (SID: 14226245)
 * **Student Name:** Cheung Cho Kin (SID: 14225979)
-* **Student Name:**
+* **Student Name:** Li Chi Shing (SID:14205840 ) 
 * **Student Name:**
 * **Student Name:** Ho Yiu Cho Jan (SID: 14112868)
 
