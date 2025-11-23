@@ -103,7 +103,8 @@ The server provides public RESTful APIs for managing tasks without session authe
 * **Command**
     ```bash
     curl -X PUT https://ptm-group51-akcvcmgwe8e8aah7.germanywestcentral-01.azurewebsites.net/api/tasks/<PASTE_YOUR_ID_HERE> \
-    -H "Content-Type: application/json" -d '{"status": "Completed", "description": "Updated status via API"}'
+    -H "Content-Type: application/json" \
+    -d '{"status": "Completed", "description": "Updated status via API"}'
     ```
 
 #### 4. DELETE: Remove a task
