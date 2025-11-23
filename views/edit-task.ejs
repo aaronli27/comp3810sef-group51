@@ -1,36 +1,230 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, #4A90E2, #50C0A8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .back-link {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: #34495e;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #2c3e50;
+        }
+
+        main {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #4A90E2, #50C0A8);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
 <body>
-    <h1>📋 Edit Task</h1>
-    <hr>    
-    <form action="/tasks/edit/<%= task._id %>" method="POST">
-        <table cellpadding="5">
-            <tr><td>Title:</td><td><input name="title" value="<%= task.title %>" size="20"></td></tr>
-            <tr><td>Description:</td><td><input name="description" value="<%= task.description %>" size="20"></td></tr>
-            <tr>
-                <td>Priority:</td>
-                <td>
-                <select name="priority">
-                    <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
-                    <option value="Medium" <%= task.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
-                    <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
-                </select>
-            </td></tr>
-            <tr>
-                <td>Status:</td>
-                <td>
-                <select name="status">
-                    <option value="To Do" <%= task.status === 'To Do' ? 'selected' : '' %>>To Do</option>
-                    <option value="In Progress" <%= task.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
-                    <option value="Done" <%= task.status === 'Done' ? 'selected' : '' %>>Done</option>
-                </select>
-            </td></tr>
-            <tr><td>Due Date:</td><td><input type="date" name="dueDate" value="<%= task.dueDate.toISOString().split('T')[0] %>"></td></tr>
-            <tr><td>Category:</td><td><input name="category" value="<%= task.category %>"></td></tr>
-            <tr><td>Estimated Time:</td><td><input name="estimatedTime" value="<%= task.estimatedTime %>"></td></tr>
-            <tr><td>Actual Times:</td><td><input name="actualTimes" value="<%= task.actualTimes %>"></td></tr>
-        </table>
-        <input type="submit" value="Update">
-    </form>
-    <a href="/tasks">← Back to Tasks</a>
+    <div class="container">
+        <header>
+            <h1>Personal Task Manager</h1>
+            <a href="/tasks" class="back-link">Back to Tasks</a>
+        </header>
+
+        <main>
+            <h2>📋 Edit Task</h2>
+            
+            <form action="/tasks/edit/<%= task._id %>" method="POST">
+                <div class="form-group">
+                    <label for="title">Title *</label>
+                    <input id="title" name="title" value="<%= task.title %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"><%= task.description %></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Priority *</label>
+                    <select id="priority" name="priority" required>
+                        <option value="Low" <%= task.priority === 'Low' ? 'selected' : '' %>>Low</option>
+                        <option value="Medium" <%= task.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
+                        <option value="High" <%= task.priority === 'High' ? 'selected' : '' %>>High</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status *</label>
+                    <select id="status" name="status" required>
+                        <option value="To Do" <%= task.status === 'To Do' ? 'selected' : '' %>>To Do</option>
+                        <option value="In Progress" <%= task.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+                        <option value="Done" <%= task.status === 'Done' ? 'selected' : '' %>>Done</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dueDate">Due Date *</label>
+                    <input type="date" id="dueDate" name="dueDate" value="<%= task.dueDate.toISOString().split('T')[0] %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <textarea id="category" name="category"><%= task.category %></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="estimatedTime">Estimated Time *</label>
+                    <input type="text" id="estimatedTime" name="estimatedTime" value="<%= task.estimatedTime %>" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="actualTimes">Actual Time</label>
+                    <input type="text" id="actualTimes" name="actualTimes" value="<%= task.actualTimes %>">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update Task</button>
+                    <a href="/tasks" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </main>
+    </div>
 </body>
 </html>
