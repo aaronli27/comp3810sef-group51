@@ -145,6 +145,10 @@ app.get('/login', (req, res) => {
     });
 });
 
+app.post('/login', authenticateUser, (req, res) => {
+    res.redirect('/tasks');
+});
+
 
 app.get('/signup', (req, res) => {
     res.status(200).render('signup', { 
