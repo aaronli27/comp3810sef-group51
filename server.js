@@ -145,9 +145,6 @@ app.get('/login', (req, res) => {
     });
 });
 
-app.post('/login', authenticateUser, (req, res) => {
-    res.redirect('/tasks');
-});
 
 app.get('/signup', (req, res) => {
     res.status(200).render('signup', { 
@@ -221,6 +218,35 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
+// Add this POST route for /tasks
+app.post('/tasks', authenticateUser, async (req, res) => {
+    try {
+        await client.connect();
+        const db = client.db(dbName);
+        
+        // Handle task creation or other POST operations
+        const newTask = {
+            title: req.fields.title,
+            description: req.fields.description,
+            priority: req.fields.priority,
+            status: req.fields.status || 'To Do',
+            dueDate: new Date(req.fields.dueDate),
+            category: req.fields.category,
+            estimatedTime: req.fields.estimatedTime,
+            actualTime: "0 hours",
+            createdAt: new Date(),
+            username: req.user.username
+        };
+        
+        await insertDocument(db, tasksCollection, newTask);
+        res.redirect('/tasks');
+    } catch (error) {
+        console.error("Create task error:", error);
+        res.status(500).render('error', { message: "Failed to create task" });
+    } finally {
+        await client.close();
+    }
+});
 app.get('/tasks', authenticateUser, async (req, res) => {
     try {
         await client.connect();
