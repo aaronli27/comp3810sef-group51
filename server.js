@@ -237,7 +237,7 @@ app.post('/tasks', authenticateUser, async (req, res) => {
             dueDate: new Date(req.fields.dueDate),
             category: req.fields.category,
             estimatedTime: req.fields.estimatedTime,
-            actualTime: "0 hours",
+            actualTimes: "0 hours",
             createdAt: new Date(),
             username: req.user.username
         };
@@ -289,7 +289,7 @@ app.post('/tasks/create', authenticateUser, async (req, res) => {
             dueDate: new Date(req.fields.dueDate),                //     When need or finish it
             category: req.fields.category,                        //      what type of tasks? (work,things to buy)     
             estimatedTime: req.fields.estimatedTime,             
-            actualTime: "0 hours",                               
+            actualTimes: "0 hours",                               
             createdAt: new Date(),
             username: req.user.username
         };
@@ -476,7 +476,7 @@ client.connect().then(async () => {
                 dueDate: req.fields.dueDate ? new Date(req.fields.dueDate): new Date(),
                 category: req.fields.category || 'General',
                 estimatedTime: req.fields.estimatedTime || '1 hour',
-                actualTime: "0 hours",
+                actualTimes: "0 hours",
                 createdAt: new Date(),
                 username: req.fields.username || "User"
             };
